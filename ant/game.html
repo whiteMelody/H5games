@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<title>疯狂踩蚂蚁</title>
+<script>
+	
+	//游戏结束事件
+    function dp_submitScore(score){
+		myOver();
+        if (window.parent.game_over){
+            window.parent.game_over( score );
+        }
+    }
+	//游戏重玩事件
+	function myReset(){
+		cc.game.onStart();
+		 if (window.parent.game_reset){
+            window.parent.game_reset();
+        }
+	}
+	//游戏开始前事件
+	function myStart(){
+		window.parent.GameSetting.game_start_time = new Date().getTime();
+	}
+	//游戏结束前事件
+	function myOver(){
+		window.parent.GameSetting.game_over_time = new Date().getTime();
+	}
+	//游戏初始化事件
+	function myInit(){
+		window.parent.GameSetting.game_id = 19;	// 游戏appId
+		window.parent.GameSetting.game_acrony = "ant";	//游戏缩写
+		window.parent.GameSetting.compare_type = true;	// true 成绩大者胜利， false 成绩小者胜利
+		window.parent.GameSetting.score_unit = "只";		// 游戏单位
+		window.parent.GameSetting.share_game = "疯狂踩蚂蚁";	//游戏分享名称
+		window.parent.GameSetting.share_unit = "踩了";		//游戏分享描
+		window.parent.GameSetting.gameinfo_url = window.parent.API_URL_PREFIX + "wydlz_game/games/19.json";		//游戏信息路径述
+		window.parent.document.title = "疯狂踩蚂蚁";
+	}
+	
+	window.onload = myInit();
+
+</script>
+<style>
+body, canvas, div {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.logo {
+    position: fixed;
+    left: 38%;
+    top: 30%;
+    z-index: 999;
+}
+.logo.pin {
+    left: 2px;
+    top: 2px;
+}
+.logo img {
+    height: 48px;
+}
+#gameCanvas {
+    height: 480px;
+    max-height: 100%;
+}
+</style>
+</head>
+
+<body style="padding:0; margin: 0;">
+<canvas id="gameCanvas" width="320" height="480"></canvas>
+<script>
+    var wx = {}, cc = {};
+    wx.production = true;
+    cc.OrbitCamera = cc.CatmullRomBy = cc.CatmullRomTo = cc.CardinalSplineBy = cc.CardinalSplineTo = {};
+</script>
+<script src="js/cocos2d-html5-v3.0-rc1-core-min.js?v=1.00"></script>
+<script src="js/game.min.js?v=1.00"></script>
+</body>
+</html>

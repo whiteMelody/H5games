@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" type="image/GIF" href="res/favicon.ico"/>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="viewport" content="user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <title>十滴水</title> 
+    <script src="js/cocos2d-3.0rc1.canvas.v2.min.js"></script>
+    <style type="text/css">
+    body{
+      background: url(img/t01ee19c23c0b43f5a2.jpg);
+      background-size: 100% 100%;
+    }
+    </style>
+
+</head>
+<body>	 
+
+
+    <canvas id="gameCanvas" width="" height="" style="background:#fff"></canvas>
+    <script type="text/javascript">
+	
+		  //游戏结束事件
+    function dp_submitScore(score){
+		myOver();
+        if (window.parent.game_over){
+            window.parent.game_over( score );
+        }
+    }
+	//游戏重玩事件
+	function myReset(){
+		cc.game.onStart();
+		if (window.parent.game_reset){
+            window.parent.game_reset();
+        }
+	}
+	//游戏开始前事件
+	function myStart(){
+		window.parent.GameSetting.game_start_time = new Date().getTime();
+	}
+	//游戏结束前事件
+	function myOver(){
+		window.parent.GameSetting.game_over_time = new Date().getTime();
+	}
+	//游戏初始化事件
+	function myInit(){
+		window.parent.GameSetting.game_id = 27;	// 游戏appId
+		window.parent.GameSetting.game_acrony = "sds";	//游戏缩写
+		window.parent.GameSetting.compare_type = true;	// true 成绩大者胜利， false 成绩小者胜利
+		window.parent.GameSetting.score_unit = "分";		// 游戏单位
+		window.parent.GameSetting.share_game = "十滴水";	//游戏分享名称
+		window.parent.GameSetting.share_unit = "玩了";		//游戏分享描述
+		window.parent.GameSetting.gameinfo_url = window.parent.API_URL_PREFIX + "wydlz_game/games/27.json";		//游戏信息路径
+		window.parent.document.title = "十滴水";
+	}
+	
+	window.onload = myInit();
+	
+          window.onload = function(){
+              cc.game.onStart = function(){
+                  cc.view.enableAutoFullScreen(false);
+                  cc.view.setDesignResolutionSize(720, 1280, cc.ResolutionPolicy.SHOW_ALL);
+                  cc.view.resizeWithBrowserSize(true);
+                  cc.director.setDisplayStats(cc.game.config.showFPS);
+                  //load resources
+                  //cc._loaderImage = "";
+                  cc.LoaderScene.preload(['img/t010f770ba385ffecac.png', 'res/imgs.json', 'img/t011f9c5417b890deb6.png'], function () {
+                      cc.spriteFrameCache.addSpriteFrames('res/imgs.json', 'img/t010f770ba385ffecac.png');
+                      cc.director.runScene(new HelloWorldScene());
+                  }, this);
+              };
+              cc.game.run("gameCanvas");
+          };
+		  
+    </script>
+
+</body>
+</html>

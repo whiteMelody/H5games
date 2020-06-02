@@ -1,0 +1,68 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		
+        <title>像素小鸟</title>
+		<style type="text/css">
+			body { margin:0px; }
+			body, canvas, div {
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				-khtml-user-select: none;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+		</style>
+      <script>
+		//游戏结束事件
+		function dp_submitScore(score){
+			myOver();
+			if (window.parent.game_over){
+				window.parent.game_over( score );
+			}
+		}
+		//游戏重玩事件
+		function myReset(){
+			 if (window.parent.game_reset){
+				window.parent.game_reset();
+			}
+		}
+		//游戏开始前事件
+		function myStart(){
+			window.parent.GameSetting.game_start_time = new Date().getTime();
+		}
+		
+		//游戏结束前事件
+		function myOver(){
+			window.parent.GameSetting.game_over_time = new Date().getTime();
+		}
+		
+		//游戏初始化事件
+		function myInit(){
+			window.parent.GameSetting.game_id = 13;	// 游戏appId
+			window.parent.GameSetting.game_acrony = "xsxn";	//游戏缩写
+			window.parent.GameSetting.compare_type = true;	// true 成绩大者胜利， false 成绩小者胜利
+			window.parent.GameSetting.score_unit = "关";		// 游戏单位
+			window.parent.GameSetting.share_game = "像素小鸟";	//游戏分享名称
+			window.parent.GameSetting.share_unit = "飞了";		//游戏分享描述
+			window.parent.GameSetting.gameinfo_url = window.parent.API_URL_PREFIX + "wydlz_game/games/13.json";		//游戏信息路径
+			window.parent.document.title = "像素小鸟";
+		}
+		
+		window.onload = myInit();
+
+	</script>
+	<script type="text/javascript" src="js/out.js?v=1.00"></script>
+	</head>
+    <body>
+		<div style="text-align:center;">
+			<canvas id="linkScreen">
+				很遗憾，您的浏览器不支持HTML5，请使用支持HTML5的浏览器。
+			</canvas>
+		</div>
+       
+	</body>
+</html>

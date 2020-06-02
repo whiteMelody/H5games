@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="x-author" content="MU">
+    <title>挖掘机</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/style.css?v=1" />
+    <style>
+     body, canvas, div {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+	</style>
+    <script src="js/api3rd.js"></script>
+</head>
+<body>
+<div id="body-1">
+    <a class="hwlogo" href="#" touchstart="clickMore();">挖掘机</a>
+    <img src="images/bg.jpg" width="100%" height="100%" />
+    <div id="try"><img src="images/try.gif" width="100%" height="100%" /></div>
+</div>
+<div id="body-2" style="display: none">
+    <div id="top" class="clear">
+        <div id="timeback">倒计时：<span id="lastRunTime">10</span>秒</div>
+        <div id="top-shi" class="clear"><i class="tico ico-shi"></i><div class="tfont" id="counterXiang">0</div></div>
+        <div id="top-baoshi" class="clear"><i class="tico ico-baoshi"></i><div class="tfont" id="counterGem">0</div></div>
+    </div>
+    <div class="start-bg" id="startLayer"></div>
+    <div class="excavator-channel" id="excavatorChannel"></div>
+    <img src="images/wa-1.png" id="excavatorRun" style="display: none" />
+    <img id="excavatorReady" src="images/g1.gif" height="200" />
+    <img id="excavatorReadyTips" src="images/tips.png" />
+    <img id="baoWrap" src="images/bao-bianbian.gif" style="display: none" />
+    <img id="lastTime321" src="images/bao-bianbian.gif" style="display: none" />
+    <div class="touch-area"></div>
+</div>
+<div id="body-3" style="display: none">
+    <div class="float-img"><img  id="finishImg" src="" width="100%" height="100%" /></div>
+</div>
+<div id="body-4" class="hide">
+    <a class="hwlogo" href="#" touchstart="clickMore();"></a>
+    <div id="b4-bg"><img src="images/score.jpg?v=2" width="100%" height="100%" />
+        <div id="bbox-g"><img src="images/bbox-g.gif" width="100%" height="100%" /></div>
+        <div id="bbox"><img src="images/bbox.png" width="100%" height="100%" /></div>
+    </div>
+    <div id="score-scale-wrap">我击败了全国<span id="score-scale">0</span>的人<br /></div>
+    <div id="score-wrap">
+        猛挖了<span id="score">0</span>米，<br />
+        <span id="resultNoticeText"></span>
+    </div>
+    <a href="#" id="surprisedBtn">
+    </a>
+    <div id="tbtn" class="clear">
+        <div id="trya"><!--再试一次--></div>
+        <div id="tshare"><!--赶紧炫耀--></div>
+    </div>
+</div>
+<div id="body-sound">
+    <audio src="images/m-1.mp3"  preload="auto" id="startGameVideo"></audio>
+</div>
+<script src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
+<script src="js/vendor/createjs/createjs-2013.12.12.min.js"></script>
+<script src="js/game.min.js?v=2"></script>
+<script>
+	
+	//游戏结束事件
+    function dp_submitScore(score){
+		myOver();
+        if (window.parent.game_over){
+            window.parent.game_over( score );
+        }
+    }
+	//游戏重玩事件
+	function myReset(){
+		
+		 if (window.parent.game_reset){
+            window.parent.game_reset();
+        }
+	}
+	//游戏开始前事件
+	function myStart(){
+		window.parent.GameSetting.game_start_time = new Date().getTime();
+	}
+	//游戏结束前事件
+	function myOver(){
+		window.parent.GameSetting.game_over_time = new Date().getTime();
+	}
+	//游戏初始化事件
+	function myInit(){
+		window.parent.GameSetting.game_id = 28;	// 游戏appId
+		window.parent.GameSetting.game_acrony = "wjj";	//游戏缩写
+		window.parent.GameSetting.compare_type = true;	// true 成绩大者胜利， false 成绩小者胜利
+		window.parent.GameSetting.score_unit = "米";		// 游戏单位
+		window.parent.GameSetting.share_game = "挖掘机";	//游戏分享名称
+		window.parent.GameSetting.share_unit = "挖了";		//游戏分享
+		window.parent.GameSetting.gameinfo_url = window.parent.API_URL_PREFIX + "wydlz_game/games/28.json";		//游戏信息路径
+		window.parent.document.title = "挖掘机";
+		
+		// 禁止回弹效果
+		document.ontouchmove = function(e){ e.preventDefault(); }
+		window.ontouchmove = function(e){ e.preventDefault(); }
+	}
+	
+	window.onload = myInit();
+</script>
+</body>
+</html>

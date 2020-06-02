@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录成功,页面即将关闭......</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+</head>
+<body>
+	<script>
+		
+		if(window.parent.GameSetting){
+			if(window.parent.GameSetting.login_type == 101){
+				window.parent.login_callback_bailei();
+			}else if(window.parent.GameSetting.login_type == 102){
+				window.parent.login_callback_tiaozhan();
+			}
+			window.close();
+		}else{
+			window.location.href = "http://app.game.zhaopian.com";
+		}
+		
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>全民擂台</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/Public/css/jquery.mobile-1.4.3.min.css">
+<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/Public/js//jquery.mobile-1.4.3.min.js"></script>
+<link rel="stylesheet" href="css/common.css">
+<script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+</head>
+<body>
+<div data-role="page" id="game"><!-- game  -->
+    <div data-role="content" style="text-align:center; margin:0; padding:0;">
+        <iframe src="" class="game-canvas-iframe" id="game_frame">Your browser doesn't support IFrames</iframe>
+    </div>
+    
+    <!-- 提示框 -->
+    <div data-role="popup" id="msg_dialog1"  data-dismissible="false" class="ts_popup_style">
+        <div role="main" class="ui-content" style="padding:0 !important">
+            <div class="popup_ts_content">
+                <h3 class="msg_title">提示</h3>
+                <p class="msg"></p>
+            </div>
+            <div class="popup_btn_div">
+                <button onClick="$('#msg_dialog1').popup('close');">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- // game -->
+
+<div data-role="page" id="bl_success_page">
+    <div data-role="content"  style="padding:0 1.2em !important;margin-top:2em">
+        <div style="width:100%; text-align:center;color:#F30">
+            <div class="gameover_cj_div" >
+                <img src="images/wdcj.png">
+                <div class="cj_style_div" id="my_score"></div>
+                <div>历史成绩:<font id="max_score"></font></div>
+            </div>
+        </div>
+        <hr style="border:none !important; border-top:1px #D8D7DC dashed !important;">
+        <div class="gameover_hs_div" id="result_desc"></div>
+        <div style="width:100%;text-align:center !important" class="tz_btn_div">
+            <button id="to_bailei" class="tc_btn">摆擂台</button>
+            <button id="replay_btn" class="kx_btn">重玩</button>
+        </div>
+    </div>
+    
+    <!-- 提示框 -->
+    <div data-role="popup" id="msg_dialog2"  data-dismissible="false" class="ts_popup_style">
+        <div role="main" class="ui-content" style="padding:0 !important">
+            <div class="popup_ts_content">
+                <h3 class="msg_title">提示</h3>
+                <p class="msg"></p>
+            </div>
+            <div class="popup_btn_div">
+                <button onClick="$('#msg_dialog2').popup('close');">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--摆擂页面-->
+<div data-role="page" id="bl_page">
+    <div data-role="content" style="padding:0 1.2em !important;margin-top:1em">
+        <div class="user_top">
+            <div class="leidou_div">
+                <div class="leidou_style_left_div">
+                    <img src="images/dou.png">
+                </div>
+                <div class="leidou_number_div" id="player_point"></div>
+            </div>
+            <div>
+                <img src="images/default-avatar@2x.png" class="user_small_img" id="player_head">
+                <font class="user_name_font" id="player_name"></font></div>
+        </div>
+        <hr style="border:none !important; border-top:1px #D8D7DC dashed !important;">
+        <div style="text-align:center;">
+            <p class="choose_leidou_p">选择擂豆摆擂</p>
+            <table border="0" cellspacing="0" cellpadding="0" class="bailei_table_img">
+                <tr class="img_tr">
+                    <td><img src="images/light.png" class="bl_gh_img">
+                        <img src="images/gou.png" class="bl_gou_img">
+                        <img src="images/1000.png" class="bl_ld_img1 bl_ld_img bl_ld_click" data-imgnumber='1'></td>
+                    <td><img src="images/2000.png" class="bl_ld_img2 bl_ld_img" data-imgnumber='2'></td>
+                    <td><img src="images/4000.png" class="bl_ld_img3 bl_ld_img" data-imgnumber='4'></td>
+                    <td><img src="images/8000.png" class="bl_ld_img4 bl_ld_img" data-imgnumber='8'></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><img src="images/up.png" class="little_sj_style" width="12">
+                        <div class="choose_leidou_border_div">
+                            <div>所需擂豆：<font class="leidou_number_font">1000</font></div>
+                            <div align="right">擂台时间：<font>24:00:00</font></div>
+                        </div></td>
+                </tr>
+            </table>
+            <p class="bailei_hasu_p">玩家每挑战成功一次，你将损失<font class="sunshi_leidou_font">50</font>擂豆；反之，你将赢取<font class="sunshi_leidou_font">50</font>擂豆。时间结束或擂豆消耗完，擂台将自动关闭。</p>
+        </div>
+        <div style="width:100%;text-align:center !important" class="tz_btn_div">
+            <button class="tc_btn" id="save_btn">生成擂台</button>
+            <!--<button id="retry_btn">返回游戏</button>-->
+        </div>
+    </div>
+    
+    <!-- 提示框 -->
+    <div data-role="popup" id="msg_dialog3"  data-dismissible="false" class="ts_popup_style">
+        <div role="main" class="ui-content" style="padding:0 !important">
+            <div class="popup_ts_content">
+                <h3 class="msg_title">提示</h3>
+                <p class="msg"></p>
+            </div>
+            <div class="popup_btn_div">
+                <button onClick="$('#msg_dialog3').popup('close');">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="success_page">
+    <div data-role="content"  style="padding:0 1.2em !important;margin-top:2em">
+        <div style="width:100%; text-align:center;color:#F30">
+            <div class="gameover_cj_div" style="margin-bottom:3em">
+                <img src="images/pic_bai.png" style="width:190px !important">
+            </div>
+        </div>
+        <div class="gameover_hs_div" style="text-align:center;line-height:2em;width:90%">恭喜，摆擂成功，赶紧邀请小伙伴们来挑战吧！</div>
+        <div style="width:100%;text-align:center !important" class="tz_btn_div">
+            <button  class="tc_btn" id="share_btn">邀请好友挑战</button>
+            <!--<button id="back_btn" class="kx_btn">查看擂台详情</button>-->
+        </div>
+    </div>
+</div>
+<div data-role="page" id="login"><!-- login  -->
+    
+    <div data-role="content" style="text-align:center; margin:0; padding:0;">
+        <iframe src="" class="game-canvas-iframe" id="login_frame">Your browser doesn't support IFrames</iframe>
+    </div>
+</div>
+<!-- // login -->
+
+<div id="ajax_load" style="width:100%; height:100%; position:fixed; background:rgba(0,0,0,.8); display:none;z-index:9999999;">
+    <img src="images/ajax-loader.gif" style="top:0; left:0; right:0; bottom:0; margin:auto; position:fixed;">
+</div>
+<script src="js/game_setting.js?t=1415343554"></script>
+<script src="js/common.js?t=14153435592"></script>
+<script>myTool.initGame(Request.getParmar("c"));</script>
+<script src="js/ajax.js?t=1415343554"></script>
+<script src="js/bailei.js?t=1415343554"></script>
+<script>
+$(document).on("pageinit","#bl_page",function(){
+    $(window).bind("orientationchange resize pageshow",function(){
+    //计算小三角形的初始位置
+        setTimeout(function(){
+            var td_width=parseFloat($('.img_tr td').width());
+            var littlesj_width=parseFloat($('.little_sj_style').innerWidth());
+            $('.little_sj_style').css('left',(td_width-littlesj_width)/2+18+"px");
+            $('.little_sj_style').show();
+        },200);
+       setpostion();
+   });
+    //$('.bl_gou_img').css('margin-top',+"px");  
+});
+$(function(){
+    //切换擂豆img
+    $(document).on('click','.bl_ld_img',function(){
+       if(!$(this).prev().hasClass('bl_gou_img')){ 
+           $('.bl_ld_img').css('margin-top',"0"); 
+           for (var i=1;i<5;i++){
+              if($('.bl_ld_img'+i+'').prev().hasClass('bl_gou_img')){
+                   var numbers=i;
+                   if(i==3){
+                       numbers=4;
+                   }else if(i==4){
+                       numbers=8;
+                   }  
+                   $('.bl_ld_img'+i+'').parent().html('<img src="images/'+numbers+'000.png" class="bl_ld_img'+i+' bl_ld_img" data-imgnumber="'+numbers+'">'); 
+              };
+           }
+           //img 
+           var htmls='<img src="images/light.png" class="bl_gh_img"><img src="images/gou.png" class="bl_gou_img">'
+           var number=parseInt($(this).attr('data-imgnumber')); 
+           var ldindex=number;
+           if(number==4){
+               ldindex=3;
+           }else if(number==8){
+               ldindex=4;
+           };
+           htmls+='<img src="images/'+number+'000.png" class="bl_ld_img'+ldindex+' bl_ld_img bl_ld_click" data-imgnumber="'+number+'">';
+           $(this).parent().html(htmls);
+           setpostion();
+           $('.sunshi_leidou_font').html(number*1000/20);
+           $('.leidou_number_font').html(number+"000");
+           var td_width=parseFloat($('.img_tr td').width());
+           var littlesj_width=parseFloat($('.little_sj_style').innerWidth());
+           $('.little_sj_style').css('left',(td_width-littlesj_width)/2+td_width*(ldindex-1)+18+"px");
+           
+       }
+    })
+})
+function setpostion(){
+    var width=parseFloat($(".bl_ld_img").width());
+    var height=parseFloat($(".bl_ld_img").height());
+    $('.bl_gh_img').width(width*1.1);
+    $('.bl_gou_img').width(width*0.28);
+    var gou_width=$('.bl_gou_img').width();
+    var gou_height=$('.bl_gou_img').height();
+    $('.bl_gou_img').css('margin-left',((width-gou_width)*0.82)+"px");
+    $('.bl_gou_img').css('margin-top',((height-gou_height)*0.65)+"px");
+    var gh_width=$('.bl_gh_img').width();
+    var gh_height=$('.bl_gh_img').height();
+    $('.bl_gh_img').css('margin-left',-(gh_width*0.05)+"px");
+    $('.bl_gh_img').css('margin-top',-((height-gou_height)*0.7)+"px");
+    $('.bl_ld_click').css("margin-top",-width*0.1+"px");
+    $('.bl_gh_img').show();
+    $('.bl_gou_img').show();
+}
+</script>
+</body>
+</html>

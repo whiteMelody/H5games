@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no"/>
+<title>打企鹅</title>
+<script type="text/javascript">
+        var _config = {}; _config['isSite'] = 'http://app.game.zhaopian.com/games/daqie/';_config["isCount"] = "http://app.game.zhaopian.com/games/daqie/";_config["isSites"] = "http://app.game.zhaopian.com/games/daqie/";
+        var _con = {}; _con["num"] = 52;
+
+	
+	
+	//游戏结束事件
+    function dp_submitScore(score){
+		myOver();
+        if (window.parent.game_over){
+            window.parent.game_over( score );
+        }
+    }
+	//游戏重玩事件
+	function myReset(){
+		Main.restartGame();
+		 if (window.parent.game_reset){
+            window.parent.game_reset();
+        }
+	}
+	//游戏开始前事件
+	function myStart(){
+		window.parent.GameSetting.game_start_time = new Date().getTime();
+	}
+	//游戏结束前事件
+	function myOver(){
+		window.parent.GameSetting.game_over_time = new Date().getTime();
+	}
+	//游戏初始化事件
+	function myInit(){
+		window.parent.GameSetting.game_id = 15;	// 游戏appId
+		window.parent.GameSetting.game_acrony = "daqie";	//游戏缩写
+		window.parent.GameSetting.compare_type = true;	// true 成绩大者胜利， false 成绩小者胜利
+		window.parent.GameSetting.score_unit = "米";		// 游戏单位
+		window.parent.GameSetting.share_game = "打企鹅";	//游戏分享名称
+		window.parent.GameSetting.share_unit = "打了";		//游戏分享描述
+		window.parent.GameSetting.gameinfo_url = window.parent.API_URL_PREFIX + "wydlz_game/games/15.json";		//游戏信息路径
+		window.parent.document.title = "打企鹅";
+	}
+	
+	window.onload = myInit();
+
+	
+</script>
+ 
+<script type="text/javascript" charset="utf-8" src="index_files/createjs.min_c69e5ef.js?v=1.00"></script>
+<script type="text/javascript" charset="utf-8" src="index_files/zepto.min_43dde47.js?v=1.00"></script>
+<script type="text/javascript" charset="utf-8" src="index_files/common_1cf1320.js?v=1.00"></script>
+<style>
+body, html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    -webkit-tap-highlight-color: transparent;
+}
+canvas {
+    max-width:100% !important;
+}
+#container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.bt-animation {
+    -webkit-transition: all 200ms;
+    -moz-transition: all 200ms;
+    -ms-transition: all 200ms;
+    -o-transition: all 200ms;
+    transition: all 200ms;
+}
+.bt-advertisement, .bt-h-scrren, .bt-v-scrren, .bt-play-logo-adv, .bt-play-share-tip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6000;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+}
+#bt-play-logo-adv {
+    z-index: 9001;
+}
+#bt-play-logo-adv-lock {
+    z-index: 9000;
+}
+.bt-play-share-tip {
+    text-align: right;
+}
+.bt-play-share-tip-img {
+    margin: 10px 2%0 0;
+    width: 60%;
+    max-width: 180px;
+}
+.bt-h-scrren, .bt-v-scrren {
+    background: #fff;
+}
+.bt-h-scrren table, .bt-h-scrren tr, .bt-h-scrren td, .bt-v-scrren table, .bt-v-scrren tr, .bt-v-scrren td {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.bt-h-screen-img, .bt-v-screen-img {
+    margin: 10px 1%;
+    max-width: 98%;
+}
+.bt-lock-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    background: #000;
+}
+#bt-hide-lock {
+    z-index: -1;
+}
+.bt-game-loading {
+    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 1.6rem;
+    text-align: center;
+    color: gray;
+    background: #fff;
+}
+.bt-game-loading table, .bt-game-loading tr, .bt-game-loading td {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+.bt-game-loading.bt-img {
+    width: 452px;
+    max-width: 70%;
+}
+.bt-game-loading.bt-text {
+    padding-top: 30px;
+}
+.bt-hide {
+    overflow: hidden!important;
+    width: 0!important;
+    height: 0!important;
+    opacity: 0!important;
+    margin: 0!important;
+    padding: 0!important;
+}
+#share-wx {
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+}
+#wx-qr {
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+}
+.lis {
+    overflow: hidden;
+    width: 100%;
+    z-index: 99999;
+    position: absolute;
+    top: 0;
+}
+.lis a {
+    display: block;
+    width: 99.9%;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    background: #606783;
+    text-align: center;
+    opacity: 0.5;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: "微软雅黑"
+}
+.lis a img {
+    position: relative;
+    top: 1px;
+}
+</style>
+<style>
+[touch-action="none"] {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+[touch-action="pan-x"] {
+    -ms-touch-action: pan-x;
+    touch-action: pan-x;
+}
+[touch-action="pan-y"] {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+}
+[touch-action="scroll"], [touch-action="pan-x pan-y"], [touch-action="pan-y pan-x"] {
+    -ms-touch-action: pan-x pan-y;
+    touch-action: pan-x pan-y;
+}
+</style>
+<style id="style-1-cropbar-clipper">
+/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -90px !important;
+    width: 180px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+
+body, canvas, div {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+</style>
+</head>
+<body>
+<script type="text/javascript" charset="utf-8" src="index_files/code_1910af9.js?v=1.00"></script>
+<div id="wx-qr" style="position: fixed; top: 0px; left: 0px; width: 100%; z-index: 10000; display: none; background: rgba(0, 0, 0, 0.8);">
+    <p style="text-align: center; width: 220px; color: rgb(255, 255, 255); margin: 50px auto 0px; font-weight: bold; font-style: normal; font-variant: normal; font-size: 16px; line-height: normal; font-family: Arial, Helvetica, &#39;Microsoft Yahei&#39;, 微软雅黑, STXihei, 华文细黑, sans-serif;">分享给朋友一起玩！</p>
+</div>
+<div id="container" style="width: 100% !important; height:auto; top: 51.9375px; left: 0px;">
+    <!-- <canvas id="canvas" width="320" height="480"></canvas> -->
+    <canvas id="canvas" width="320" height="480"></canvas>
+</div>
+<div style="display: none;">
+</div>
+<script type="text/javascript" charset="utf-8" src="index_files/index_a2ed464.js?v=1.00"></script>
+<script type="text/javascript" charset="utf-8" src="index_files/flyline_fd36b9f.js?v=1.00"></script>
+<div id="share" style="display: none">
+    <img width="100%" src="index_files/shares_b56da23.png" style="position: fixed; z-index: 9999; top: 0; left: 0;" ontouchstart="document.getElementById(&#39;share&#39;).style.display=&#39;none&#39;;">
+</div>
+<div style="display: none;"></div>
+</body>
+</html>

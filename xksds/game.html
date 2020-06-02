@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>胸口碎大石</title>
+   <link rel="icon" type="image/GIF" href="res/icon.png"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        body, canvas, div {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+
+</head>
+<body style="padding:0; margin: 0; background: #000;">
+
+<canvas id="gameCanvas" width="" height=""></canvas>
+
+<script src="game.min.js?v=1.02"></script>
+<script>
+	//游戏结束事件
+    function dp_submitScore(score){
+		myOver();
+        if (window.parent.game_over){
+            window.parent.game_over( score );
+        }
+    }
+	//游戏重玩事件$
+	function myReset(){
+		 if (window.parent.game_reset){
+            window.parent.game_reset();
+        }
+	}
+	//游戏开始前事件
+	function myStart(){
+		window.parent.GameSetting.game_start_time = new Date().getTime();
+	}
+	//游戏结束前事件
+	function myOver(){
+		window.parent.GameSetting.game_over_time = new Date().getTime();
+	}
+	//游戏初始化事件
+	function myInit(){
+		window.parent.GameSetting.game_id = 21;	// 游戏appId
+		window.parent.GameSetting.game_acrony = "xksds";	//游戏缩写
+		window.parent.GameSetting.compare_type = true;	// true 成绩大者胜利， false 成绩小者胜利
+		window.parent.GameSetting.score_unit = "元";		// 游戏单位
+		window.parent.GameSetting.share_game = "胸口碎大石";	//游戏分享名称
+		window.parent.GameSetting.share_unit = "赚了";		//游戏分享描述
+		window.parent.GameSetting.score_ratio = 0.01;	//游戏成绩比例  成绩会乘以这个数
+		window.parent.GameSetting.gameinfo_url = window.parent.API_URL_PREFIX + "wydlz_game/games/21.json";		//游戏信息路径
+		window.parent.document.title = "胸口碎大石";
+	}
+	
+	window.onload = myInit();
+
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+@charset "utf-8";
+body,div,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td {margin: 0;padding: 0;}
+input,button,select,textarea{vertical-align:middle;margin:0;padding:0;outline:none}
+h1,h2,h3,h4,h5,h6 {font-weight:normal;font-size:100%;}
+address,cite,dfn,em,var {font-style: normal;font-weight: normal; }
+code,kbd,pre,samp {font-family: courier new,courier,monospace; }
+ul,ol,li {list-style: none; }
+a{color:#646464;text-decoration:none; }
+a:hover {text-decoration:none; }
+sup{ vertical-align: text-top; }
+sub{ vertical-align: text-bottom; }
+legend{color:#000;}
+fieldset,img { border: 0; }
+button,input,select,textarea { font-size: 100%;}
+button,input { *overflow:visible; }
+table {border-collapse:collapse; border-spacing: 0; }
+img{vertical-align:middle;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{display: block;margin: 0;padding: 0;}
+object,embed{ outline:none;}
+/* clear float */
+.clear:after { visibility: hidden; display: block; font-size: 0; content: "."; clear:both; height:0; }
+* html .clear { zoom:1;}
+*:first-child+html .clear { zoom:1;}
+/* clear float end */
+.hide{display:none;}
+html,body{width:100%;height:100%;}
+html{font-size:12px;}
+@media screen and (max-width:700px){html{font-size:20px}}
+@media screen and (min-width:300px){html{font-size:12px}}
+@media screen and (min-width:639px){html{font-size:20px}}
+#body-1{width: 100%; position:absolute; height: 100%; top: 0; left: 0;}
+#body-2{ width:100%; height: 100%; overflow: hidden; background-color: #2f221a;}
+#body-3,#body-4{width: 100%;height: 100%;position:relative;}
+
+#try{height: 12%;left: 25%;position: absolute;top: 84%;width: 50%;}
+
+.excavator{ width: 100px; height: 100px; background-color: #f012be; left: 30%; top: 20%; position: absolute;}
+.start-bg{ background:url(../images/bg2.jpg) no-repeat top center; background-size:100% auto; position:absolute; height: 100%; width: 100%; top: 0; left: 0;}
+.earth-bg{ background:url(../images/re-bg.jpg) repeat-y;background-size:100% auto; width: 100%; position: absolute; bottom: -2000px; left: 0; height: 2000px;}
+.touch-area{ width: 100%; height: 100%; position: absolute; top: 0; left: 0}
+.excavator-channel{ width: 140px; height: 0px; background-color: #0000FF; left: 24%; top: 37.5%; position: absolute;}
+#excavatorReady{height:auto; margin-left: 24%;margin-top: 30%;width:70%; position: absolute;}
+
+
+#top{color: #f00;font-family:"KaiTi";font-size: 1.5rem;font-weight: bold;height:8%;width:100%;position:absolute;top:0px;left:0px;z-index:10;}
+#timeback{margin:2.8% 0 0 3%;float:left;}
+#top .tico {background-size: 84% auto;display:block;height:90%;width:32%;float:left;}
+#top-shi{float: left;height: 100%;width: 28%;margin-left:4%;}
+#top-baoshi{float: left;height: 100%;width: 28%;margin-left:1%;}
+#top-baoxiang{float: left;height: 100%;width: 18%;margin-left:1%;}
+.ico-shi{background:url(../images/shi-ico.png) no-repeat center center;}
+.ico-baoshi{background:url(../images/baoshi-ico.png) no-repeat center center;margin-top:2%;}
+.ico-baoxiang{background:url(../images/baoxiang-ico.png) no-repeat center center;margin-top:4%;}
+#top .ico-shi{background-size: 80% auto;}
+#top .ico-baoxiang{background-size: 120% auto;}
+.tfont{margin:12% 0 0 4%;float:left;}
+.float-img{position:absolute;z-index:10;margin:33% 0 0 12%;width: 78%;height: 54%;}
+
+
+.excavator{ width: 100px; height: 100px; background-color: #f012be; left: 30%; top: 20%; position: absolute;}
+.start-bg{ background:url(../images/bg2.jpg) no-repeat top center; background-size:100% auto; position:absolute; height: 100%; width: 100%; top: 0; left: 0;}
+.earth-bg{ background:url(../images/re-bg.jpg) repeat-y;background-size:100% auto; width: 100%; position: absolute; bottom: -2000px; left: 0; height: 2000px;}
+.touch-area{ width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
+.excavator-channel{ width: 140px; height: 0px; background-color: #16100b; margin-left: -4%; position: absolute;  border-radius:0px 0px 80px 80px;}
+#excavatorReady{height:auto; margin-left: 20%;margin-top: 28%;width:74%; position: absolute;}
+#lastTime321{height:auto; margin-left: 40%; top:20%; width:13%; position: absolute;}
+#excavatorRun{height:auto; margin-left: 28%; margin-top: 34%;width:74%; position: absolute;}
+#baoWrap{height:auto; margin-left: 50%; width:32%; position: absolute;}
+#body-0{ width: 100%; height: 100%; position: absolute;}
+#body-0 .loading-text{ width: 200px; height: 50px; top: 70%; left: 30%; position: absolute;}
+
+#b3-bg,#b4-bg{height: 100%;left: 0;position: absolute;top: 0;width: 100%;z-index: -1;}
+#cdk,#cdk-tips,#wiexin-id,#cdk-share{color: #ffe400;font-weight: bold;left: 11%;position: absolute;text-align: center;top: 55%;width: 76%;font-size:1.1rem}
+#cdk-tips{color: #8C8C8C;font-weight: normal;top: 59%;}
+#cdk-share{height: 6%;left: 23%;top: 66%;width: 48%;}
+#wiexin-id{color: #535353;left: 44%;top: 81.4%;width: 20%;height:3%;font-size:1.0rem}
+
+.hwlogo{position: absolute; z-index: 2; top: 0; left: 50%; margin-left: -60px; width: 120px; height: 60px;text-indent: -9999px; font-size: 0;}
+
+#bbox-g{height: 42%; left: 23%; position: absolute; top: 38%; width: 52%; z-index: 1;}
+@-webkit-keyframes guanghuan{
+	0%{-webkit-transform:rotate(0deg)}
+	100%{-webkit-transform:rotate(360deg)}
+}
+@-moz-keyframes guanghuan{
+	0%{-moz-transform:rotate(0deg)}
+	100%{-moz-transform:rotate(360deg)}
+}
+#bbox{height: 23%;left: 31%;position: absolute;top: 50%;width: 40%;z-index: 2;}
+
+.excavator{ width: 100px; height: 100px; background-color: #f012be; left: 30%; top: 20%; position: absolute;}
+.start-bg{ background:url(../images/bg2.jpg) no-repeat top center; background-size:100% auto; position:absolute; height: 100%; width: 100%; top: 0; left: 0;}
+.earth-bg{ background:url(../images/re-bg.jpg) repeat-y;background-size:100% auto; width: 100%; position: absolute; bottom: -2000px; left: 0; height: 2000px;}
+.touch-area{ width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
+.excavator-channel{ width: 140px; height: 0px; background-color: #16100b; margin-left: -4%; position: absolute;  border-radius:0px 0px 80px 80px;}
+#excavatorReady,#excavatorReadyTips{height:auto;  margin:0px; padding: 0px; left: 25%; width:74%; position: absolute;}
+#excavatorReadyTips{margin-left: -12%;margin-top: 70%;}
+#excavatorRun{height:auto;  margin:0px; padding: 0px; left: 25%; width:74%; position: absolute;}
+#body-0{ width: 100%; height: 100%; position: absolute;}
+#body-0 .loading-text{ width: 200px; height: 50px; top: 70%; left: 30%; position: absolute;}
+
+#b3-bg,#b4-bg{height: 100%;left: 0;position: absolute;top: 0;width: 100%;z-index: -1;}
+#cdk,#cdk-tips,#wiexin-id,#cdk-share{color: #ffe400;font-weight: bold;left: 11%;position: absolute;text-align: center;top: 55%;width: 76%;font-size:1.1rem}
+#cdk-tips{color: #8C8C8C;font-weight: normal;top: 59%;}
+#cdk-share{height: 6%;left: 23%;top: 66%;width: 48%;}
+#wiexin-id{color: #535353;left: 44%;top: 81.4%;width: 20%;height:3%;font-size:1.0rem}
+
+#score-scale-wrap,#score-wrap{color:#000;font-size:1.5rem;font-weight:bold;left:10%;position: absolute;text-align: center;top: 15.3%;width:80%;font-family:"KaiTi";font-weight: bold;}
+#score-wrap{left: 38%;top: 23.5%;width: 50%;text-align: left;}
+#surprised,#tbtn{height: 26%;left: 30%;position: absolute;top: 45%;width: 44%;}
+#tbtn{height: 10%;left: 6%;top: 82%;width: 88%;}
+#trya,#tshare{float: left;height: 100%;margin-left: 4%;width: 42%;}
+#tshare{margin-left: 9%;}
+#score-scale,#score{color:#F00}
+#share-jt{float: right;}

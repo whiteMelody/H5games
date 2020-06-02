@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>全民擂台</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<link rel="stylesheet" href="/Public/css/jquery.mobile-1.4.3.min.css">
+<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/Public/js//jquery.mobile-1.4.3.min.js"></script>
+<link rel="stylesheet" href="css/common.css">
+<script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+</head>
+<body>
+<div data-role="page" id="game"><!-- game  -->
+    <div class="zz_tx_bigdiv"></div>
+    <div class="zz_contentdiv">
+        <img src="images/default-avatar@2x.png" class="zz_leizhu_img">
+        <div class="zz_leizhu_xb_div">
+            <img src="images/zz_leizhu_img.png" class="zz_leizhu_img_xb">
+            <p>[擂主]</p>
+        </div>
+        <p id="leizhu_nick"></p>
+        <p class="zz_hs_p" id="tiaozhan_desc">你最多可以挑战10次，挑战成功将赢得<font class="tiaozhan_point">400</font>擂豆，失败将损失<font class="tiaozhan_point">400</font>擂豆。</p>
+        <div style="width:100%;text-align:center !important;" class="tz_btn_div">
+            <a data-role="button" class="zz_gamestart_btn tc_btn">开始挑战</a>
+        </div>
+    </div>
+    <div data-role="content" style="text-align:center; margin:0; padding:0;">
+        <iframe src="" class="game-canvas-iframe" id="game_frame">Your browser doesn't support IFrames</iframe>
+    </div>
+    
+    <!-- 提示框 -->
+    <div data-role="popup" id="msg_dialog1"  data-dismissible="false" class="ts_popup_style">
+        <div role="main" class="ui-content" style="padding:0 !important">
+            <div class="popup_ts_content">
+                <h3 class="msg_title">提示</h3>
+                <p class="msg"></p>
+            </div>
+            <div class="popup_btn_div">
+                <button onClick="$('#msg_dialog1').popup('close');">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- // game -->
+
+<div data-role="page" id="bl_success_page">
+    <div data-role="content"  style="text-align:center;padding:0 !important;">
+        <div style="text-align:center;padding:0 1em !important;margin-top:0.5em">
+            <img src="images/sl.png" class="tz_state_imgStyle" id="result_img">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tz_table_xq">
+                <tr align="center">
+                    <td><div class="first_child_div">
+                            <img src="images/default-avatar@2x.png"  id="leizhu_head" class="childdiv_tx_imgdiv">
+                        </div>
+                        <p id="leizhu_name"  class="p_username_font"></p>
+                        <p class="grad_p" id="leizhu_score"></p>
+                        <div class="tz_td_ld_div">
+                            <img src="images/tz_ld.png" align="absmiddle">
+                            <span id="leizhu_get_point"></span>
+                        </div></td>
+                    <td><div class="center_child_div">VS</div></td>
+                    <td><div class="last_child_div">
+                            <img src="images/default-avatar@2x.png" class="childdiv_tx_imgdiv"  id="player_head">
+                        </div>
+                        <p id="player_name"  class="p_username_font"></p>
+                        <p  class="grad_p" id="player_score"></p>
+                        <div class="tz_td_ld_div">
+                            <img src="images/tz_ld.png" align="absmiddle">
+                            <span id="player_get_point"></span>
+                        </div></td>
+                </tr>
+            </table>
+        </div>
+        <p class="tz_hs_div" id="game_result"></p>
+        <div style="text-align:center !important;padding:0 1em !important;margin-bottom:2em" class="tz_btn_div">
+            <button id="re_try" class="tc_btn">继续挑战</button>
+            <button id="my_share" class="kx_btn">邀请好友挑战</button>
+        </div>
+        <div align="left" class="tzb_title_div">挑战排行榜(<b id="rank_length"></b>人)</div>
+        <table class="tzp_table" width="100%" border="0" data-role='none' cellpadding="0" cellspacing="0" >
+        </table>
+        <a href="http://apptest.game.zhaopian.com/mobile/download.html" target="new">
+        <img src="images/download.png" width="100%" style="position:fixed;bottom:0;left:0;display:none; z-index:9999;" class="guanggao">
+        </a>
+        <!--正在加载-->
+        <button id="load_btn" class="loadmore_div" style="margin-bottom:50px;">
+        <img src="images/ajax-loader.gif" width="20" align="absmiddle" style="display:none;">
+        <span id="load_desc">点击加载</span>
+        </button>
+    </div>
+    
+    <!-- 提示框 -->
+    <div data-role="popup" id="msg_dialog2"  data-dismissible="false" class="ts_popup_style">
+        <div role="main" class="ui-content" style="padding:0 !important">
+            <div class="popup_ts_content">
+                <h3 class="msg_title">提示</h3>
+                <p class="msg"></p>
+            </div>
+            <div class="popup_btn_div">
+                <button onClick="$('#msg_dialog2').popup('close');">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="score_page">
+    <div data-role="content"  style="padding:0 1.2em !important;margin-top:2em">
+        <div style="width:100%; text-align:center;color:#F30">
+            <div class="gameover_cj_div" >
+                <img src="images/wdcj.png">
+                <div class="cj_style_div" id="my_score"></div>
+                <div>历史成绩:<font id="max_score"></font></div>
+            </div>
+        </div>
+        <hr style="border:none !important; border-top:1px #D8D7DC dashed !important;">
+        <div class="gameover_hs_div">立即登录与擂主拼成绩，查看挑战结果，首次登陆即送1200擂豆，参与抽奖送话费</div>
+        <div style="width:100%;text-align:center !important" class="tz_btn_div">
+            <button id="login_btn" class="tc_btn">登录</button>
+            <!--<button id="replay_btn" class="kx_btn">重玩</button>-->
+        </div>
+        <a href="http://apptest.game.zhaopian.com/mobile/download.html" target="new">
+        <img src="images/download.png" width="100%" style="position:fixed;bottom:0;left:0; display:none;" class="guanggao">
+        </a>
+    </div>
+    
+    <!-- 提示框 -->
+    <div data-role="popup" id="msg_dialog3"  data-dismissible="false" class="ts_popup_style">
+        <div role="main" class="ui-content" style="padding:0 !important">
+            <div class="popup_ts_content">
+                <h3 class="msg_title">提示</h3>
+                <p class="msg"></p>
+            </div>
+            <div class="popup_btn_div">
+                <button onClick="$('#msg_dialog3').popup('close');">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="login"><!-- login  -->
+    
+    <div data-role="content" style="text-align:center; margin:0; padding:0;">
+        <iframe src="" class="game-canvas-iframe" id="login_frame">Your browser doesn't support IFrames</iframe>
+    </div>
+</div>
+<!-- // login -->
+
+<div id="ajax_load" style="width:100%; height:100%; position:fixed; background:rgba(0,0,0,.8); display:none;">
+    <img src="images/ajax-loader.gif" style="top:0; left:0; right:0; bottom:0; margin:auto; position:fixed;">
+</div>
+<div id="share_bg" style="width:100%; height:100%; position:fixed; display:none;">
+    <img src="images/share_weix.png" style="top:0; right:0; position:fixed; width:100%">
+</div>
+<script src="js/game_setting.js?v=2.02"></script>
+<script src="js/common.js?v=2.02"></script>
+<script> myTool.initGame(Request.getParmar("c"));  </script>
+<script src="js/ajax.js?v=2.02"></script>
+<script language="javascript">
+		
+		var ip = remote_ip_info.province, ShareUrl = "http://web.game.zhaopian.com/";
+		
+		var alltag = Request.getParmar('alltag'); //初始转发标识
+		var parenttag = Request.getParmar('parenttag'); //父级来源标识
+		var nowtag = "";  //当前分享标识
+		var level = Request.getParmar('level')*1;  //第几次分享
+		if(level==0 || level =='') level=1;
+		
+		var share_desc = "";
+		
+        // 需要分享的内容，请放到ready里
+        WeixinApi.ready(function(Api) {
+
+            // 微信分享的数据
+            var wxData = {
+                appId: "", 
+                imgUrl : GameSetting.share_icon,
+                link : 'http://apptest.game.zhaopian.com/wydlz_game/gameing.html?appid='+ GameSetting.game_id,
+                desc : GameSetting.share_content,
+                title : GameSetting.share_title
+            };
+		
+				
+            // 分享的回调
+            var wxCallbacks = {
+                // 分享操作开始之前
+                ready : function() {
+                    // 你可以在这里对分享的数据进行重组
+
+                    //Post数据组合
+                    game_name="2048微信版"; //游戏名称
+                    var time=Math.round(new Date().getTime()/1000);
+                    nowtag  = time +""+ myNum.mathRandom();
+                    if(parenttag =='') parenttag = nowtag;
+                    if(alltag =='') alltag = nowtag;
+                    var urllevel=level*1+1; //下一个链接中的分享层次
+                    //alert(nowtag + "---"+parenttag);
+					//alert(document.title);
+					
+					/*************************************分享*****************************************/
+					wxData.desc = share_desc;
+					
+                    wxData.link = "http://apptest.game.zhaopian.com/wydlz_game/gameing.html?appid="+ GameSetting.game_id +"&g_type=3&re_id="+GameSetting.re_id+"&alltag="+alltag+"&parenttag="+nowtag+"&level="+urllevel;
+					
+                    //alert(wxData.link);
+                    //alert("准备分享");
+                },
+                // 分享被用户自动取消  andriod 暂不支持（取消也会提示）
+                cancel : function(resp) {
+                    // 你可以在你的页面上给用户一个小Tip，为什么要取消呢？
+                    //alert("分享被取消");
+                },
+                // 分享失败了
+                fail : function(resp) {
+                    // 分享失败了，是不是可以告诉用户：不要紧，可能是网络问题，一会儿再试试？
+                    //alert("分享失败");
+                },
+                // 分享成功
+                confirm : function(resp) {
+                    // 分享成功了，我们是不是可以做一些分享统计呢？
+                    //window.location.href='http://192.168.1.128:8080/wwyj/test.html';
+                    PostTongji(GameSetting.share_game ,alltag ,  parenttag , nowtag , level , GameSetting.share_source , wxData.link , ip);
+                    alltag = Request.getParmar('alltag'); //初始化转发标识
+                    parenttag = Request.getParmar('parenttag'); //初始化父级来源标识
+                    //alert("分享成功");
+                },
+                // 整个分享过程结束
+                all : function(resp) {
+                    // 如果你做的是一个鼓励用户进行分享的产品，在这里是不是可以给用户一些反馈了？
+                    //alert("分享结束");
+                }
+            };
+
+            // 用户点开右上角popup菜单后，点击分享给好友，会执行下面这个代码
+            Api.shareToFriend(wxData, wxCallbacks);
+
+            // 点击分享到朋友圈，会执行下面这个代码
+            Api.shareToTimeline(wxData, wxCallbacks);
+
+            // 点击分享到腾讯微博，会执行下面这个代码
+            Api.shareToWeibo(wxData, wxCallbacks);
+
+        });
+    </script>
+<script src="js/tiaozhan.js?v=2.02"></script>
+</body>
+</html>
